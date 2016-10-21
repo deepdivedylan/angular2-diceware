@@ -1,0 +1,1 @@
+<h1>Diceware Component</h1>
