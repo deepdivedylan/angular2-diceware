@@ -39,7 +39,7 @@
 		"html-webpack-plugin": "^2.15.0",
 		"extract-text-webpack-plugin": "^1.0.1",
 		"file-loader": "^0.8.5",
-		"font-awesome": "^4.6.3",
+		"font-awesome": "^4.7.0",
 		"font-awesome-webpack": "^0.0.4",
 		"less": "^2.7.1",
 		"less-loader": "^2.2.3",
