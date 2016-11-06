@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
 import {Diceware} from "../classes/diceware";
 import {DicewareService} from "../services/diceware-service";
 
@@ -12,7 +13,7 @@ export class SplashComponent implements OnInit {
 	dicewareRollSearch: string = null;
 	dicewareWordSearch: string = null;
 
-	constructor(private dicewareService: DicewareService) {}
+	constructor(private dicewareService: DicewareService, private router: Router) {}
 
 	ngOnInit() : void {
 		this.dicewareService.getAllDiceware()
@@ -38,5 +39,9 @@ export class SplashComponent implements OnInit {
 		} else {
 			this.dicewareRollsFiltered = this.dicewareRolls;
 		}
+	}
+
+	switchDiceware(diceware : Diceware) : void {
+		this.router.navigate(["/diceware/", diceware.roll]);
 	}
 }
