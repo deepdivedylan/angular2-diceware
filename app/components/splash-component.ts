@@ -8,11 +8,24 @@ import {DicewareService} from "../services/diceware-service";
 
 export class SplashComponent implements OnInit {
 	dicewareRolls: Diceware[] = [];
+	dicewareRollsFiltered: Diceware[] = [];
+	dicewareRollSearch: string = null;
 
 	constructor(private dicewareService: DicewareService) {}
 
 	ngOnInit() : void {
 		this.dicewareService.getAllDiceware()
-			.subscribe(dicewareRolls => this.dicewareRolls = dicewareRolls);
+			.subscribe(dicewareRolls => {
+				this.dicewareRolls = dicewareRolls;
+				this.dicewareRollsFiltered = dicewareRolls;
+			});
+	}
+
+	filterByRoll() : void {
+		if(this.dicewareRollSearch !== null) {
+			this.dicewareRollsFiltered = this.dicewareRolls.filter((diceware: Diceware) => diceware.roll.indexOf(this.dicewareRollSearch) >= 0);
+		} else {
+			this.dicewareRollsFiltered = this.dicewareRolls;
+		}
 	}
 }
