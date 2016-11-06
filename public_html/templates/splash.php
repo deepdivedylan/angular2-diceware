@@ -13,9 +13,9 @@
 		</div>
 	</div>
 </div>
-<table class="table table-bordered table-responsive table-striped table-word-wrap">
+<table class="table table-bordered table-hover table-responsive table-striped">
 	<tr><th>Roll</th><th>Word</th></tr>
-	<tr *ngFor="let dicewareRoll of dicewareRollsFiltered">
+	<tr class="cursor-pointer" *ngFor="let dicewareRoll of dicewareRollsFiltered" (click)="switchDiceware(dicewareRoll);">
 		<td>{{ dicewareRoll.roll }}</td>
 		<td>{{ dicewareRoll.word }}</td>
 	</tr>
