@@ -10,6 +10,7 @@ export class SplashComponent implements OnInit {
 	dicewareRolls: Diceware[] = [];
 	dicewareRollsFiltered: Diceware[] = [];
 	dicewareRollSearch: string = null;
+	dicewareWordSearch: string = null;
 
 	constructor(private dicewareService: DicewareService) {}
 
@@ -23,7 +24,17 @@ export class SplashComponent implements OnInit {
 
 	filterByRoll() : void {
 		if(this.dicewareRollSearch !== null) {
+			this.dicewareWordSearch = null;
 			this.dicewareRollsFiltered = this.dicewareRolls.filter((diceware: Diceware) => diceware.roll.indexOf(this.dicewareRollSearch) >= 0);
+		} else {
+			this.dicewareRollsFiltered = this.dicewareRolls;
+		}
+	}
+
+	filterByWord() : void {
+		if(this.dicewareWordSearch !== null) {
+			this.dicewareRollSearch = null;
+			this.dicewareRollsFiltered = this.dicewareRolls.filter((diceware: Diceware) => diceware.word.indexOf(this.dicewareWordSearch.toLowerCase()) >= 0);
 		} else {
 			this.dicewareRollsFiltered = this.dicewareRolls;
 		}
