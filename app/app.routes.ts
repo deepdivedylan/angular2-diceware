@@ -6,7 +6,7 @@ import {SplashComponent} from "./components/splash-component";
 export const allAppComponents = [DicewareComponent, SplashComponent];
 
 export const routes: Routes = [
-	{path: "dice/:roll", component: DicewareComponent},
+	{path: "diceware/:roll", component: DicewareComponent},
 	{path: "", component: SplashComponent}
 ];
 
