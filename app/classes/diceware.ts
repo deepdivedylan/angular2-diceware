@@ -1,3 +1,3 @@
 export class Diceware {
-	constructor(public roll: number, public word: string) {}
+	constructor(public roll: string, public word: string) {}
 }
