@@ -2,6 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Diceware} from "../classes/diceware";
 import {DicewareService} from "../services/diceware-service";
+import {Observable} from "rxjs";
+import "rxjs/add/observable/from";
 
 @Component({
 	templateUrl: "./templates/splash.php"
@@ -12,6 +14,7 @@ export class SplashComponent implements OnInit {
 	dicewareRollsFiltered: Diceware[] = [];
 	dicewareRollSearch: string = null;
 	dicewareWordSearch: string = null;
+	dicewareObservable : Observable<Diceware> = null;
 
 	constructor(private dicewareService: DicewareService, private router: Router) {}
 
@@ -20,6 +23,7 @@ export class SplashComponent implements OnInit {
 			.subscribe(dicewareRolls => {
 				this.dicewareRolls = dicewareRolls;
 				this.dicewareRollsFiltered = dicewareRolls;
+				this.dicewareObservable = Observable.from(dicewareRolls);
 			});
 	}
 
@@ -33,11 +37,15 @@ export class SplashComponent implements OnInit {
 	}
 
 	filterByWord() : void {
+		this.dicewareRollsFiltered = [];
 		if(this.dicewareWordSearch !== null) {
 			this.dicewareRollSearch = null;
-			this.dicewareRollsFiltered = this.dicewareRolls.filter((diceware: Diceware) => diceware.word.indexOf(this.dicewareWordSearch.toLowerCase()) >= 0);
+			this.dicewareObservable
+				.filter(diceware => diceware.word.indexOf(this.dicewareWordSearch.toLowerCase()) >= 0)
+				.subscribe(diceware => this.dicewareRollsFiltered.push(diceware));
 		} else {
-			this.dicewareRollsFiltered = this.dicewareRolls;
+			this.dicewareObservable
+				.subscribe(diceware => this.dicewareRollsFiltered.push(diceware));
 		}
 	}
 
