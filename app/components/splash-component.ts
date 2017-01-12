@@ -10,7 +10,6 @@ import "rxjs/add/observable/from";
 })
 
 export class SplashComponent implements OnInit {
-	dicewareRolls: Diceware[] = [];
 	dicewareRollsFiltered: Diceware[] = [];
 	dicewareRollSearch: string = null;
 	dicewareWordSearch: string = null;
@@ -21,18 +20,21 @@ export class SplashComponent implements OnInit {
 	ngOnInit() : void {
 		this.dicewareService.getAllDiceware()
 			.subscribe(dicewareRolls => {
-				this.dicewareRolls = dicewareRolls;
 				this.dicewareRollsFiltered = dicewareRolls;
 				this.dicewareObservable = Observable.from(dicewareRolls);
 			});
 	}
 
 	filterByRoll() : void {
+		this.dicewareRollsFiltered = [];
 		if(this.dicewareRollSearch !== null) {
 			this.dicewareWordSearch = null;
-			this.dicewareRollsFiltered = this.dicewareRolls.filter((diceware: Diceware) => diceware.roll.indexOf(this.dicewareRollSearch) >= 0);
+			this.dicewareObservable
+				.filter(diceware => diceware.roll.indexOf(this.dicewareRollSearch) >= 0)
+				.subscribe(diceware => this.dicewareRollsFiltered.push(diceware));
 		} else {
-			this.dicewareRollsFiltered = this.dicewareRolls;
+			this.dicewareObservable
+				.subscribe(diceware => this.dicewareRollsFiltered.push(diceware));
 		}
 	}
 
