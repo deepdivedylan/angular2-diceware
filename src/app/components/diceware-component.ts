@@ -4,7 +4,7 @@ import {DicewareService} from "../services/diceware-service";
 import {Diceware} from "../classes/diceware";
 
 @Component({
-	templateUrl: "./templates/diceware.php"
+	templateUrl: "./templates/diceware.html"
 })
 
 export class DicewareComponent implements OnInit {

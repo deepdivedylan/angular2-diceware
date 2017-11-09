@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 
 @Component({
-	templateUrl: "./templates/splash.php"
+	templateUrl: "./templates/splash.html"
 })
 
 export class SplashComponent implements OnInit {
