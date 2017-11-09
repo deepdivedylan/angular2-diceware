@@ -1,26 +1,19 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
-import {BaseService} from "./base-service";
 import {Diceware} from "../classes/diceware";
 
 @Injectable()
-export class DicewareService extends BaseService {
-	constructor(protected http: Http) {
-		super(http);
-	}
+export class DicewareService {
+	constructor(protected http: HttpClient) {}
 
 	private dicewareUrl = "api/diceware/";
 
 	getAllDiceware() : Observable<Diceware[]> {
-		return(this.http.get(this.dicewareUrl)
-			.map(this.extractData)
-			.catch(this.handleError));
+		return(this.http.get<Diceware[]>(this.dicewareUrl));
 	}
 
 	getDiceware(roll: number) : Observable<Diceware> {
-		return(this.http.get(this.dicewareUrl + roll)
-			.map(this.extractData)
-			.catch(this.handleError));
+		return(this.http.get<Diceware>(this.dicewareUrl + roll));
 	}
 }
